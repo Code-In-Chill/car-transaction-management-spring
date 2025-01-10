@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fontFamilies>
+    <fontFamily name="Roboto">
+        <normal>fonts/roboto/roboto.ttf</normal>
+        <bold>fonts/roboto/roboto-bold.ttf</bold>
+        <italic>fonts/roboto/roboto-italic.ttf</italic>
+        <boldItalic>fonts/roboto/roboto-bold-italic.ttf</boldItalic>
+
+        <pdfEncoding>Identity-H</pdfEncoding>
+        <pdfEmbedded>true</pdfEmbedded>
+    </fontFamily>
+
+    <fontFamily name="Tahoma">
+        <normal>fonts/tahoma/tahoma.ttf</normal>
+        <bold>fonts/tahoma/tahoma-bold.ttf</bold>
+
+        <pdfEncoding>Identity-H</pdfEncoding>
+        <pdfEmbedded>true</pdfEmbedded>
+    </fontFamily>
+</fontFamilies>

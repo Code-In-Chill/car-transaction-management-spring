@@ -1,0 +1,288 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="TransactionReportExcel" language="java" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8a465670-cc4a-4270-965f-8efb86e33b71">
+	<property name="template.engine" value="tabular_template"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="CTM Postgres"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.rows" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.sheet.direction" value="LTR"/>
+	<style name="Table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+			<topPen lineWidth="1.0" lineColor="#000000"/>
+			<leftPen lineWidth="1.0" lineColor="#000000"/>
+			<bottomPen lineWidth="1.0" lineColor="#000000"/>
+			<rightPen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<dataset name="tableDataset" uuid="1ceb8c14-a481-41db-9e2f-5c943d826a35">
+		<query language="sql"><![CDATA[]]></query>
+		<field name="transaction_id" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="transaction_id"/>
+			<property name="com.jaspersoft.studio.field.label" value="transaction_id"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="transaction"/>
+		</field>
+		<field name="amount" class="java.lang.Float">
+			<property name="com.jaspersoft.studio.field.name" value="amount"/>
+			<property name="com.jaspersoft.studio.field.label" value="amount"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="transaction"/>
+		</field>
+		<field name="category" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="category"/>
+			<property name="com.jaspersoft.studio.field.label" value="category"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="transaction"/>
+		</field>
+		<field name="paid_date" class="java.sql.Date">
+			<property name="com.jaspersoft.studio.field.name" value="paid_date"/>
+			<property name="com.jaspersoft.studio.field.label" value="paid_date"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="transaction"/>
+		</field>
+		<field name="note" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="note"/>
+			<property name="com.jaspersoft.studio.field.label" value="note"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="transaction"/>
+		</field>
+		<field name="vehicle_id" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="vehicle_id"/>
+			<property name="com.jaspersoft.studio.field.label" value="vehicle_id"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="vehicle"/>
+		</field>
+		<field name="brand" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="brand"/>
+			<property name="com.jaspersoft.studio.field.label" value="brand"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="vehicle"/>
+		</field>
+		<field name="model" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="model"/>
+			<property name="com.jaspersoft.studio.field.label" value="model"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="vehicle"/>
+		</field>
+		<field name="registration_plate" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="registration_plate"/>
+			<property name="com.jaspersoft.studio.field.label" value="registration_plate"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="vehicle"/>
+		</field>
+	</dataset>
+	<parameter name="USER_ID" class="java.lang.String"/>
+	<query language="sql"><![CDATA[SELECT t.id AS transaction_id,
+	t.amount,
+	t.category,
+	t.paid_date,
+	t.note,
+	v.id AS vehicle_id,
+	v.brand,
+	v.model,
+	v.registration_plate
+FROM transaction t
+	INNER JOIN vehicle v ON 
+	 t.car_id = v.id 
+WHERE 
+	 t.user_id = $P{USER_ID} 
+ORDER BY t.paid_date DESC]]></query>
+	<field name="transaction_id" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="transaction_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="transaction_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="transaction"/>
+	</field>
+	<field name="amount" class="java.lang.Float">
+		<property name="com.jaspersoft.studio.field.name" value="amount"/>
+		<property name="com.jaspersoft.studio.field.label" value="amount"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="transaction"/>
+	</field>
+	<field name="category" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="category"/>
+		<property name="com.jaspersoft.studio.field.label" value="category"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="transaction"/>
+	</field>
+	<field name="paid_date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="paid_date"/>
+		<property name="com.jaspersoft.studio.field.label" value="paid_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="transaction"/>
+	</field>
+	<field name="note" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="note"/>
+		<property name="com.jaspersoft.studio.field.label" value="note"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="transaction"/>
+	</field>
+	<field name="vehicle_id" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="vehicle_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="vehicle_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="vehicle"/>
+	</field>
+	<field name="brand" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="brand"/>
+		<property name="com.jaspersoft.studio.field.label" value="brand"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="vehicle"/>
+	</field>
+	<field name="model" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="model"/>
+		<property name="com.jaspersoft.studio.field.label" value="model"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="vehicle"/>
+	</field>
+	<field name="registration_plate" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="registration_plate"/>
+		<property name="com.jaspersoft.studio.field.label" value="registration_plate"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="vehicle"/>
+	</field>
+	<title height="98" splitType="Stretch">
+		<element kind="staticText" uuid="595c155f-c0e4-4a15-891c-24af7e95a91e" x="0" y="0" width="403" height="39" fontName="Tahoma" fontSize="30.0" underline="false" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<text><![CDATA[CarExpense Tracking]]></text>
+			<box>
+				<bottomPen lineWidth="0.25"/>
+			</box>
+		</element>
+		<element kind="textField" uuid="fe2cca3d-29ca-448c-b209-8be9665b5edf" stretchType="NoStretch" x="0" y="79" width="137" height="19" fontName="Tahoma" pattern="MM/dd/yyyy HH:mm" hTextAlign="Left" vTextAlign="Middle">
+			<expression><![CDATA[new java.util.Date()]]></expression>
+		</element>
+		<element kind="staticText" uuid="93a3ddba-3ef7-4ce5-97a8-2136cb0dcabc" x="0" y="39" width="270" height="40" fontName="Tahoma" fontSize="25.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<text><![CDATA[Báo Cáo Giao Dịch]]></text>
+			<box>
+				<pen lineWidth="0.0"/>
+				<bottomPen lineWidth="0.25"/>
+			</box>
+		</element>
+		<property name="com.jaspersoft.studio.layout"/>
+	</title>
+	<columnHeader height="30">
+		<element kind="staticText" uuid="bf8d7215-39d5-47e2-ba03-64bf5d87b3df" x="0" y="0" width="137" height="30" fontName="Tahoma" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<text><![CDATA[Mã Giao Dịch]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="745fa83b-c3bc-446e-b4e3-44248bb0d871"/>
+			<property name="net.sf.jasperreports.export.xls.freeze.row.edge" value="Top"/>
+			<property name="net.sf.jasperreports.export.xls.auto.filter" value="Start"/>
+			<property name="net.sf.jasperreports.export.xls.auto.fit.column" value="true"/>
+			<box leftPadding="5" rightPadding="5">
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="e8cf393e-96d9-4fb3-b41b-1e137ffeff36" x="137" y="0" width="133" height="30" fontName="Tahoma" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<text><![CDATA[Danh Mục]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c6098c06-7fc8-4c41-aac6-8f83cf55607e"/>
+			<property name="net.sf.jasperreports.export.xls.freeze.row.edge" value="Top"/>
+			<box leftPadding="5" rightPadding="5">
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="3218814c-0e12-4175-b057-68f5cf4a1d35" x="270" y="0" width="133" height="30" fontName="Tahoma" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<text><![CDATA[Ngày Giao Dịch]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="32365327-c5ec-4e13-a30d-cb42e8e180d1"/>
+			<property name="net.sf.jasperreports.export.xls.freeze.row.edge" value="Top"/>
+			<box leftPadding="5" rightPadding="5">
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="03fb86dd-2626-4e74-9451-4e1392fc8fa7" x="403" y="0" width="133" height="30" fontName="Tahoma" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<text><![CDATA[Phương Tiện]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f628b05d-ef82-4f4a-8da4-fca672341cbf"/>
+			<property name="net.sf.jasperreports.export.xls.freeze.row.edge" value="Top"/>
+			<property name="net.sf.jasperreports.export.xls.auto.filter" value="End"/>
+			<box leftPadding="5" rightPadding="5">
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="8af8709b-dc11-406b-9740-84b45234bd90" x="536" y="0" width="133" height="30" fontName="Tahoma" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<text><![CDATA[Số tiền]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="67b9c0f9-eb1c-4e31-96b6-706cb02376e3"/>
+			<property name="net.sf.jasperreports.export.xls.freeze.row.edge" value="Top"/>
+			<box leftPadding="5" rightPadding="5">
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="13c81b11-a9a1-4a4a-ab24-f6b5d4e7d076" x="669" y="0" width="133" height="30" fontName="Tahoma" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<text><![CDATA[Ghi Chú]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8654e79a-e9a1-4189-abc2-d77bdc3658a0"/>
+			<property name="net.sf.jasperreports.export.xls.freeze.row.edge" value="Top"/>
+			<box leftPadding="5" rightPadding="5">
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.spreadsheet.SpreadsheetLayout"/>
+	</columnHeader>
+	<detail>
+		<band height="30">
+			<element kind="textField" uuid="113e5203-f9ea-43e6-83c2-f4ce52fa3232" x="0" y="0" width="137" height="30" fontName="Tahoma" hTextAlign="Left" vTextAlign="Middle">
+				<expression><![CDATA[$F{transaction_id}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="745fa83b-c3bc-446e-b4e3-44248bb0d871"/>
+				<box leftPadding="5" rightPadding="5">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="c64b7f58-5771-4613-9e70-4f41ed633c24" x="137" y="0" width="133" height="30" fontName="Tahoma" hTextAlign="Left" vTextAlign="Middle">
+				<expression><![CDATA[$F{category}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c6098c06-7fc8-4c41-aac6-8f83cf55607e"/>
+				<box leftPadding="5" rightPadding="5">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="b852d181-e272-4f75-92eb-81064033b4dd" x="270" y="0" width="133" height="30" fontName="Tahoma" pattern="dd/MM/yyyy" hTextAlign="Left" vTextAlign="Middle">
+				<expression><![CDATA[$F{paid_date}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="32365327-c5ec-4e13-a30d-cb42e8e180d1"/>
+				<box leftPadding="5" rightPadding="5">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="c719e136-e739-4fe3-8f64-7d2033d73743" x="403" y="0" width="133" height="30" fontName="Tahoma" hTextAlign="Left" vTextAlign="Middle">
+				<expression><![CDATA[$F{brand} + "-" + $F{model} + "(" + $F{registration_plate} + ")"]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f628b05d-ef82-4f4a-8da4-fca672341cbf"/>
+				<box leftPadding="5" rightPadding="5">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="3cbe97bc-917a-4fc9-b9d1-a91577235da3" x="536" y="0" width="133" height="30" fontName="Tahoma" pattern="#,##0.## đ;#,##0.## đ" linkType="None" linkTarget="Self" hTextAlign="Left" vTextAlign="Middle">
+				<expression><![CDATA[$F{amount}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="67b9c0f9-eb1c-4e31-96b6-706cb02376e3"/>
+				<box leftPadding="5" rightPadding="5">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="a11612e5-5226-47d3-b2d1-2469176031d6" x="669" y="0" width="133" height="30" fontName="Tahoma" hTextAlign="Left" vTextAlign="Middle">
+				<expression><![CDATA[$F{note}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8654e79a-e9a1-4189-abc2-d77bdc3658a0"/>
+				<box leftPadding="5" rightPadding="5">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.spreadsheet.SpreadsheetLayout"/>
+		</band>
+	</detail>
+	<columnFooter height="30">
+		<element kind="textField" uuid="c719cac5-9731-43a7-b576-0266977467b9" x="0" y="0" width="270" height="30" fontName="Tahoma" italic="true" hTextAlign="Left" vTextAlign="Middle">
+			<expression><![CDATA["uid: " + $P{USER_ID}]]></expression>
+		</element>
+	</columnFooter>
+</jasperReport>

@@ -1,17 +1,16 @@
 package fis.baolm2.ctm.spring.controllers;
 
 import fis.baolm2.ctm.spring.dtos.payload.TransactionPayload;
-import fis.baolm2.ctm.spring.dtos.payload.VehiclePayload;
 import fis.baolm2.ctm.spring.models.Transaction;
 import fis.baolm2.ctm.spring.models.Vehicle;
 import fis.baolm2.ctm.spring.services.TransactionService;
 import fis.baolm2.ctm.spring.services.VehicleService;
+import fis.baolm2.ctm.spring.utils.UserUtil;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,7 +34,9 @@ public class TransactionController {
 
     @GetMapping({"", "/"})
     public ResponseEntity<?> getTransactions() {
-        return ResponseEntity.ok(ts.getAllTransactionsByUserId(getUserId()));
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userID = UserUtil.getUserId(authentication);
+        return ResponseEntity.ok(ts.getAllTransactionsByUserId(userID));
     }
 
     @PutMapping("/create")
@@ -49,11 +50,14 @@ public class TransactionController {
             return ResponseEntity.badRequest().build();
         }
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userID = UserUtil.getUserId(authentication);
+
         DateTimeFormatter DATEFORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate paidDate = LocalDate.parse(transactionPayload.paidDate(), DATEFORMATTER);
 
         Transaction transaction = new Transaction();
-        transaction.setUserId(getUserId());
+        transaction.setUserId(userID);
         transaction.setVehicle(vehicle.get());
         transaction.setAmount(transactionPayload.amount());
         transaction.setCategory(transactionPayload.category());
@@ -77,11 +81,14 @@ public class TransactionController {
         Optional<Transaction> oTransaction = ts.findTransactionById(id);
 
         if (oTransaction.isPresent()) {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            String userID = UserUtil.getUserId(authentication);
+
             DateTimeFormatter DATEFORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate paidDate = LocalDate.parse(transactionPayload.paidDate(), DATEFORMATTER);
 
             Transaction transaction = oTransaction.get();
-            transaction.setUserId(getUserId());
+            transaction.setUserId(userID);
             transaction.setAmount(transactionPayload.amount());
             transaction.setCategory(transactionPayload.category());
             transaction.setPaidDate(paidDate);
@@ -106,11 +113,5 @@ public class TransactionController {
             }
         }
         return ResponseEntity.badRequest().build();
-    }
-
-    private String getUserId() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        JwtAuthenticationToken oauthToken = (JwtAuthenticationToken) authentication;
-        return oauthToken.getToken().getSubject();
     }
 }

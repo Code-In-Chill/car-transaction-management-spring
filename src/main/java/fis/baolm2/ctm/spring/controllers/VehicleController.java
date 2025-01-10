@@ -3,11 +3,11 @@ package fis.baolm2.ctm.spring.controllers;
 import fis.baolm2.ctm.spring.dtos.payload.VehiclePayload;
 import fis.baolm2.ctm.spring.models.Vehicle;
 import fis.baolm2.ctm.spring.services.VehicleService;
+import fis.baolm2.ctm.spring.utils.UserUtil;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +26,9 @@ public class VehicleController {
 
     @GetMapping({"", "/"})
     public ResponseEntity<?> getVehicles() {
-        return ResponseEntity.ok(vs.getAllVehiclesByUserId(getUserId()));
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userID = UserUtil.getUserId(authentication);
+        return ResponseEntity.ok(vs.getAllVehiclesByUserId(userID));
     }
 
     @PutMapping("/create")
@@ -34,12 +36,14 @@ public class VehicleController {
         if (result.hasErrors()) {
             return ResponseEntity.badRequest().body(result);
         }
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userID = UserUtil.getUserId(authentication);
 
         Vehicle vehicle = new Vehicle();
         vehicle.setBrand(vehiclePayload.brand());
         vehicle.setModel(vehiclePayload.model());
         vehicle.setRegistrationPlate(vehiclePayload.registrationPlate());
-        vehicle.setUserId(getUserId());
+        vehicle.setUserId(userID);
 
         Optional<Vehicle> createdVehicle = vs.addVehicle(vehicle);
 
@@ -58,11 +62,14 @@ public class VehicleController {
         Optional<Vehicle> oVehicle = vs.findVehicleById(id);
 
         if (oVehicle.isPresent()) {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            String userID = UserUtil.getUserId(authentication);
+
             Vehicle vehicle = oVehicle.get();
             vehicle.setBrand(vehiclePayload.brand());
             vehicle.setModel(vehiclePayload.model());
             vehicle.setRegistrationPlate(vehiclePayload.registrationPlate());
-            vehicle.setUserId(getUserId());
+            vehicle.setUserId(userID);
 
             Optional<Vehicle> updatedVehicle = vs.updateVehicle(vehicle);
             if (updatedVehicle.isPresent()) {
@@ -83,11 +90,5 @@ public class VehicleController {
             }
         }
         return ResponseEntity.badRequest().build();
-    }
-
-    private String getUserId() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        JwtAuthenticationToken oauthToken = (JwtAuthenticationToken) authentication;
-        return oauthToken.getToken().getSubject();
     }
 }

@@ -1,0 +1,220 @@
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
+<jasperReport name="TransactionReport" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0c09851c-275c-4ccd-9b97-9c9026e519a7" ignorePagination="true" floatColumnFooter="true">
+	<property name="net.sf.jasperreports.chart.pie.ignore.duplicated.key" value="true"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="CTM Postgres"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="net.sf.jasperreports.print.create.bookmarks" value="false"/>
+	<dataset name="CategoryTotalsDataset" uuid="aef4db7e-3daf-4ae4-a99c-921646f1c7c0">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="343"/>
+		<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="657"/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="CTM Postgres"/>
+		<parameter name="USER_ID" class="java.lang.String"/>
+		<query language="SQL"><![CDATA[SELECT 
+    category,
+    SUM(amount) as total_amount
+FROM transaction
+WHERE user_id = $P{USER_ID}
+GROUP BY category]]></query>
+		<field name="category" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="category"/>
+			<property name="com.jaspersoft.studio.field.label" value="category"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="transaction"/>
+		</field>
+		<field name="total_amount" class="java.lang.Float">
+			<property name="com.jaspersoft.studio.field.name" value="total_amount"/>
+			<property name="com.jaspersoft.studio.field.label" value="total_amount"/>
+		</field>
+		<group name="category">
+			<expression><![CDATA[$F{category}]]></expression>
+		</group>
+		<group name="total_amount">
+			<expression><![CDATA[$F{total_amount}]]></expression>
+		</group>
+	</dataset>
+	<parameter name="USER_ID" class="java.lang.String"/>
+	<query language="sql"><![CDATA[SELECT t.id AS transaction_id,
+	t.amount,
+	t.category,
+	t.paid_date,
+	t.note,
+	v.id AS vehicle_id,
+	v.brand,
+	v.model,
+	v.registration_plate
+FROM transaction t
+	INNER JOIN vehicle v ON 
+	 t.car_id = v.id 
+WHERE 
+	 t.user_id = $P{USER_ID} 
+ORDER BY t.paid_date DESC]]></query>
+	<field name="transaction_id" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="transaction_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="transaction_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="transaction"/>
+	</field>
+	<field name="amount" class="java.lang.Float">
+		<property name="com.jaspersoft.studio.field.name" value="amount"/>
+		<property name="com.jaspersoft.studio.field.label" value="amount"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="transaction"/>
+	</field>
+	<field name="category" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="category"/>
+		<property name="com.jaspersoft.studio.field.label" value="category"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="transaction"/>
+	</field>
+	<field name="paid_date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="paid_date"/>
+		<property name="com.jaspersoft.studio.field.label" value="paid_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="transaction"/>
+	</field>
+	<field name="note" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="note"/>
+		<property name="com.jaspersoft.studio.field.label" value="note"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="transaction"/>
+	</field>
+	<field name="vehicle_id" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="vehicle_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="vehicle_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="vehicle"/>
+	</field>
+	<field name="brand" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="brand"/>
+		<property name="com.jaspersoft.studio.field.label" value="brand"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="vehicle"/>
+	</field>
+	<field name="model" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="model"/>
+		<property name="com.jaspersoft.studio.field.label" value="model"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="vehicle"/>
+	</field>
+	<field name="registration_plate" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="registration_plate"/>
+		<property name="com.jaspersoft.studio.field.label" value="registration_plate"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="vehicle"/>
+	</field>
+	<background splitType="Stretch"/>
+	<title height="59" splitType="Stretch">
+		<element kind="staticText" uuid="fca0c071-cc05-4dc3-82e6-637908b21734" x="0" y="0" width="358" height="39" fontName="Roboto" fontSize="30.0" underline="false" bold="true" vTextAlign="Middle">
+			<text><![CDATA[CarExpense Tracking]]></text>
+			<box>
+				<bottomPen lineWidth="0.25"/>
+			</box>
+		</element>
+	</title>
+	<pageHeader height="58" splitType="Stretch">
+		<element kind="staticText" uuid="d8483c12-093c-4d0f-b2b7-b722f84262c2" x="141" y="0" width="273" height="58" fontName="Roboto" fontSize="25.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Báo Cáo Giao Dịch]]></text>
+			<box>
+				<bottomPen lineWidth="0.25"/>
+			</box>
+		</element>
+		<element kind="textField" uuid="1d63652a-b962-41ae-8bde-2e963c35c9d9" x="435" y="0" width="120" height="19" fontName="Roboto" hTextAlign="Right">
+			<expression><![CDATA["Trang " + $V{PAGE_NUMBER} + " trên " + $V{PAGE_NUMBER}]]></expression>
+		</element>
+		<element kind="textField" uuid="cbb3ac9f-2ec0-4dda-aa55-51ddec0ce17c" x="435" y="19" width="120" height="19" fontName="Roboto" pattern="MM/dd/yyyy" hTextAlign="Right">
+			<expression><![CDATA[new java.util.Date()]]></expression>
+		</element>
+		<element kind="textField" uuid="68130f92-8685-47ba-89d9-411e1fc396bb" x="435" y="38" width="120" height="19" fontName="Roboto" pattern="HH:mm" hTextAlign="Right">
+			<expression><![CDATA[new java.util.Date()]]></expression>
+		</element>
+	</pageHeader>
+	<columnHeader height="31" splitType="Stretch">
+		<element kind="staticText" uuid="a011c10e-e954-43f5-a27f-68b0eed6baa3" x="110" y="0" width="100" height="30" fontName="Roboto" bold="true" vTextAlign="Middle">
+			<text><![CDATA[Danh Mục]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4457cc7f-bf0b-4971-a131-128396d5101c"/>
+		</element>
+		<element kind="staticText" uuid="53753f06-d7b5-4cc2-8de4-78a4fa9663dd" x="220" y="0" width="118" height="30" fontName="Roboto" bold="true" vTextAlign="Middle">
+			<text><![CDATA[Số Tiền]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="09d170da-6f2e-4088-853c-3829acae1f9c"/>
+		</element>
+		<element kind="staticText" uuid="23ac71cb-e31d-47a1-9852-6d7ae739645f" x="348" y="0" width="100" height="30" fontName="Roboto" bold="true" vTextAlign="Middle">
+			<text><![CDATA[Phương Tiện]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d880bd75-c871-4d21-885c-833191438e0b"/>
+		</element>
+		<element kind="staticText" uuid="a69a1f5a-6e0b-4f8c-bb19-072552c7061c" x="455" y="0" width="100" height="30" fontName="Roboto" bold="true" vTextAlign="Middle">
+			<text><![CDATA[Ghi Chú]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="36c1766d-2f04-4e0d-8cb7-7d4be2484d2e"/>
+		</element>
+		<element kind="staticText" uuid="fd0afe38-4b72-44ed-b979-e5f432834785" x="0" y="0" width="100" height="30" fontName="Roboto" fontSize="10.0" bold="true" hTextAlign="Left" vTextAlign="Middle">
+			<text><![CDATA[Ngày Giao Dịch]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5e46b7fd-dd47-4eb3-8605-9d612c602fa4"/>
+		</element>
+	</columnHeader>
+	<detail>
+		<band height="35" splitType="Stretch">
+			<element kind="textField" uuid="22c29cb5-236d-44e6-82c1-09de714fb667" x="110" y="0" width="100" height="30" fontName="Roboto">
+				<expression><![CDATA[$F{category}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4457cc7f-bf0b-4971-a131-128396d5101c"/>
+				<box>
+					<leftPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="18547b8c-5853-4d00-a50d-f1af2b7c199d" x="220" y="0" width="118" height="30" fontName="Roboto" pattern="#,##0.## đ;#,##0.## đ">
+				<expression><![CDATA[$F{amount}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="09d170da-6f2e-4088-853c-3829acae1f9c"/>
+				<box>
+					<leftPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="2448c198-5640-4ae1-a7cb-577b69bf211c" x="348" y="0" width="100" height="30" fontName="Roboto">
+				<expression><![CDATA[$F{brand} + "-" + $F{model} + "\n(" + $F{registration_plate} + ")"]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d880bd75-c871-4d21-885c-833191438e0b"/>
+				<box>
+					<leftPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="898171b6-43fb-447d-b2b9-2c70d5aa8d5e" x="455" y="0" width="100" height="30" fontName="Roboto">
+				<expression><![CDATA[$F{note}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="36c1766d-2f04-4e0d-8cb7-7d4be2484d2e"/>
+				<box>
+					<leftPen lineWidth="0.0"/>
+				</box>
+			</element>
+			<element kind="line" uuid="4083b5a9-b794-4ddb-81c6-58af1b49af9b" x="0" y="34" width="555" height="1">
+				<pen lineWidth="0.25"/>
+			</element>
+			<element kind="textField" uuid="7b80e94f-7b99-4667-a0c4-4eb4413aad8a" x="0" y="0" width="100" height="30" fontName="Roboto" pattern="dd/MM/yyyy">
+				<expression><![CDATA[$F{paid_date}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5e46b7fd-dd47-4eb3-8605-9d612c602fa4"/>
+				<box>
+					<rightPen lineWidth="0.25"/>
+				</box>
+			</element>
+		</band>
+	</detail>
+	<pageFooter height="30">
+		<element kind="textField" uuid="54464aa1-05d9-4682-a5eb-4d098dcc00b0" x="0" y="0" width="280" height="30" fontName="Roboto" italic="true" vTextAlign="Middle">
+			<expression><![CDATA["uid: " + $P{USER_ID}]]></expression>
+		</element>
+	</pageFooter>
+	<summary height="240">
+		<element kind="staticText" uuid="f6a93240-144b-4e6d-ac88-2dd228e3230a" x="0" y="0" width="555" height="40" fontName="Roboto" fontSize="16.0" bold="true" vTextAlign="Middle">
+			<text><![CDATA[Mục Đích Chi Tiêu]]></text>
+		</element>
+		<element kind="chart" chartType="pie" uuid="3656b7c9-f2aa-4db5-9788-e1c68f87bd4d" x="0" y="40" width="555" height="200" evaluationTime="Report" legendPosition="Left">
+			<legendFont fontName="Roboto&#xd;&#xa;Roboto"/>
+			<dataset kind="pie" resetGroup="category" incrementGroup="category" resetType="Report">
+				<datasetRun uuid="961ce8f0-c47d-4996-8712-f1fa3fcc9806" subDataset="CategoryTotalsDataset">
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<parameter name="USER_ID">
+						<expression><![CDATA[$P{USER_ID}]]></expression>
+					</parameter>
+				</datasetRun>
+				<series>
+					<keyExpression><![CDATA[$F{category}]]></keyExpression>
+					<valueExpression><![CDATA[$F{total_amount}]]></valueExpression>
+					<labelExpression><![CDATA[$F{category} + "(" +
+new java.text.DecimalFormat("#,##0.## đ;#,##0.## đ")
+	.format(Double.valueOf($F{total_amount})) + ")"]]></labelExpression>
+				</series>
+			</dataset>
+			<plot>
+				<itemLabel/>
+			</plot>
+		</element>
+	</summary>
+</jasperReport>
